@@ -1,0 +1,61 @@
+
+
+<hr>
+<section class="filter-wrapper">
+ <div class="keyword-wrapper">
+<input [formControl]="queryField" type="text" id="keyword" placeholder="Search for products..." autofocus/>
+  </div>
+<ul class="filter-select">
+  <li *ngFor="let result of results" class="filter-select-list"><img src="{{result.images['2']?.url}}" alt="" width="50" height="50"><p class="product-name">
+    {{result.name}}</p>
+</ul>
+</section>
+<hr>
+<div class="product">
+<div class="container">
+	<div class="text-center">
+		<h2>Products</h2>
+		<hr>
+	</div>
+</div>
+<div class="container">
+
+	<div class="row list" style="margin: 1em 0;">
+
+		<!-- START : Card -->
+		<div class="col-sm-12 col-md-6 col-lg-4 list__item" *ngFor="let product of products; index as index">
+			<div class="card mb-4 shadow-sm pd-5"  >
+				<div class="card-body">
+           <p class="card-text"><strong>Product Id : </strong>{{product._id}}</p>
+           <hr>
+          
+      <strong>Product Name :  </strong>
+           
+		<editable class="edit" (update)="updateField(index, 'name',product._id)">
+			<ng-template viewMode>{{product.name}}</ng-template>
+			<ng-template editMode>
+				<input [formControl]="getControl(index, 'name')">
+		  </ng-template>
+		</editable>
+           
+    <hr>
+    <p><strong>Quantity : </strong>{{product.quantity}}</p>
+    <hr>
+     <p> <strong>Cost price :</strong> {{product.costPrice}}</p>
+     <hr>
+    <strong>Selling Price : </strong>
+     <editable class="edit" (update)="updateField(index, 'sellingPrice',product._id)">
+      <ng-template viewMode> {{product.sellingPrice}}</ng-template>
+      <ng-template editMode>
+        <input  [formControl]="getControl(index, 'sellingPrice')">
+      </ng-template>
+    </editable>    
+         
+				</div>
+			</div>
+		</div>
+		<!-- END :  Card -->
+
+	</div>
+</div>
+</div>
